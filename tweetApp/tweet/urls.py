@@ -4,6 +4,7 @@ from . import views
  
 
 urlpatterns = [
+    path('',views.home,name='home'),
     path('tweet/',views.tweet,name='tweet'),
     
 ] 
