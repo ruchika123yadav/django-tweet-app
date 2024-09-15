@@ -5,5 +5,27 @@ This is Tweet app
 {% endblock   %}
 
 {% block content %}
-<h1 class="text-white text-center mt-4">Welcome to formm</h1>
+ 
+<div class="text-white text-center mt-4">
+<h2>
+{% if form.instance.pk %}
+Edit Tweet
+
+{% comment %} ye ham iahs isliye krr rhe hia kyuki hmane edit or create tweet dono ke liye ek hi form redner karaya hai ishliye {% endcomment %}
+{% else %}
+Create Tweet
+{% endif %}
+
+</h2>
+{% comment %} enctype ye ishliye jisse hamra form koi images ya koi file ko accept krr payega {% endcomment %}
+<form method="POST" enctype="multipart/form-data" class="form">
+  {% csrf_token %}
+    {{form.as_p}}
+    {% comment %} as a paragrah redner kra rhe hai {% endcomment %}
+
+    <button class="btn btn-warning" type="submit">Submit</button>
+    <a href="{% url 'Tweet_list' %}">Back to Home page</a>
+    {% comment %} Yaha path('', views.TweetListView.as_view(), name='Tweet_list') me name='Tweet_list' jo tumne diya hai, wo name {% url 'Tweet_list' %} ke sath match karega. {% endcomment %}
+</form>
+</div>
 {% endblock %}

@@ -29,9 +29,9 @@ def Tweet_create(req):
     if req.method=='POST':
       form=TweetForm(req.POST,req.FILES)
       if form.is_valid():
-          Tweet=form.save(commit='false')#kyuki hame user bhi add krna hai uske andr
-          Tweet.user=req.user
-          Tweet.save()
+          Tweets=form.save(commit=False)#kyuki hame user bhi add krna hai uske andr
+          Tweets.user=req.user
+          Tweets.save()
           return redirect('Tweet_list')
       
     else:
@@ -42,23 +42,23 @@ def Tweet_create(req):
 
 # *****************Tweet EDIT**************
 def Tweet_edit(req,Tweet_id):
-    Tweet=get_object_or_404(Tweet,pk=Tweet_id,user=req.user)
+    Tweets=get_object_or_404(Tweet,pk=Tweet_id,user=req.user)
      
     if req.method=='POST':
-      form=TweetForm(req.POST,req.FILES,instance=Tweet)
+      form=TweetForm(req.POST,req.FILES,instance=Tweets)
       if form.is_valid():
-          Tweet=form.save(commit='false') 
-          Tweet.user=req.user
-          Tweet.save()
+          Tweets=form.save(commit=False) 
+          Tweets.user=req.user
+          Tweets.save()
           return redirect('Tweet_list')
     else:
-        form =TweetForm(instance=Tweet)
+        form =TweetForm(instance=Tweets)
     return render(req,'tweet_form.html',{'form':form})
 
 def Tweet_delete(req,Tweet_id):
-    Tweet=get_object_or_404(Tweet,pk=Tweet_id,user=req.user)
+    Tweets=get_object_or_404(Tweet,pk=Tweet_id,user=req.user)
     if req.method=='POST':
-        Tweet.delete()
+        Tweets.delete()
         return redirect('Tweet_list')
     return render(req,'tweet_delete.html')
 
